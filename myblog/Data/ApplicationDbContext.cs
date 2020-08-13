@@ -17,5 +17,6 @@ namespace myblog.Data
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
+        public DbSet<myblog.Models.Contacts> Contacts { get; set; }
     }
 }
