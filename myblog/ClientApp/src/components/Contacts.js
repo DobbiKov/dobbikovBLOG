@@ -28,7 +28,7 @@ export class Contacts extends Component {
             <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{contact.title}</td>
-              <td><a href={contact.link}>Go</a></td>
+              <td><a href={contact.link}>Go to project</a></td>
             </tr>
           )}
         </tbody>
