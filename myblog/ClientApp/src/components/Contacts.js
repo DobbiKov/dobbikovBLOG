@@ -25,10 +25,10 @@ export class Contacts extends Component {
         </thead>
         <tbody>
           {contacts.map(contact =>
-            <tr key={contact.Id}>
-              <td>{contact.Name}</td>
-              <td>{contact.Title}</td>
-              <td><a href={contact.Link}>Go</a></td>
+            <tr key={contact.id}>
+              <td>{contact.name}</td>
+              <td>{contact.title}</td>
+              <td><a href={contact.link}>Go</a></td>
             </tr>
           )}
         </tbody>
@@ -52,7 +52,7 @@ export class Contacts extends Component {
 
   async populateContacts() {
     // const token = await authService.getAccessToken();
-    const response = await fetch('сontacts', {
+    const response = await fetch('Contacts', {
       headers: {}
     });
     const data = await response.json();
