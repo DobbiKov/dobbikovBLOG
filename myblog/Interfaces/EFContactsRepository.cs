@@ -7,35 +7,35 @@ using System.Threading.Tasks;
 
 namespace myblog.Interfaces
 {
-    public class EFContactsRepository : IRepository
+    public class EFContactsRepository : IContactRepository
     {
         private ApplicationDbContext db;
         public EFContactsRepository(ApplicationDbContext _context)
         {
             this.db = _context;
         }
-        public void Create(Model post)
+        public void Create(Contacts post)
         {
             throw new NotImplementedException();
         }
 
-        public Model Delete(Guid id)
+        public Contacts Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Model> Get()
+        public IEnumerable<Contacts> Get()
         {
             Init();
             return db.Contacts.ToArray();
         }
 
-        public Model Get(Guid id)
+        public Contacts Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Model post)
+        public void Update(Contacts post)
         {
             throw new NotImplementedException();
         }

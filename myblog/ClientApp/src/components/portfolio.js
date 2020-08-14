@@ -32,7 +32,7 @@ export class Portfolio extends Component {
               <div key={portfolio.id} style={styles.div}>
                 <h3 style={styles.mz}>{portfolio.name}</h3>
                 <p style={styles.mz}>{portfolio.title}</p>
-                <a href={portfolio.link} style = {{textDecoration: 'none'}}>See</a>
+                <a href={portfolio.link} style = {{textDecoration: 'none'}}>See a project</a>
               </div>
           ) }
           </div>

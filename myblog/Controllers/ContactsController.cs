@@ -15,15 +15,15 @@ namespace myblog.Controllers
     [Route("api/[controller]")]
     public class ContactsController : ControllerBase
     {
-        private readonly IRepository contactsRepos;
+        private readonly IContactRepository contactsRepos;
 
-        public ContactsController(IRepository _contactsRepos)
+        public ContactsController(IContactRepository _contactsRepos)
         {
             contactsRepos = _contactsRepos;
         }
 
         [HttpGet]
-        public IEnumerable<Model> Get()
+        public IEnumerable<Contacts> Get()
         {
             return contactsRepos.Get();
         }

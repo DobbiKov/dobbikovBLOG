@@ -12,5 +12,6 @@ namespace myblog.Models
         public override string Title { get; set; }
         public override string Image { get; set; }
         public override string Link { get; set; }
+        public string Test { get; set; }
     }
 }

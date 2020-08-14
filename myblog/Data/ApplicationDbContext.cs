@@ -12,12 +12,14 @@ namespace myblog.Data
 {
     public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
     {
+        public DbSet<Contacts> Contacts { get; set; }
+        public DbSet<Portfolio> Portfolios { get; set; }
+
+
         public ApplicationDbContext(
             DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
         {
         }
-        public DbSet<myblog.Models.Contacts> Contacts { get; set; }
-        public DbSet<myblog.Models.Portfolio> Portfolio { get; set; }
     }
 }

@@ -11,20 +11,20 @@ using myblog.Models;
 
 namespace myblog.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PortfoliosController : ControllerBase
     {
-        private readonly IRepository repos;
+        private readonly IPortfolioRepository repos;
 
-        public PortfoliosController(IRepository _repos)
+        public PortfoliosController(IPortfolioRepository _repos)
         {
-            this.repos = _repos;
+            repos = _repos;
         }
 
         // GET: api/Portfolios
         [HttpGet]
-        public IEnumerable<Model> Get()
+        public IEnumerable<Portfolio> Get()
         {
             return repos.Get();
         }

@@ -7,48 +7,49 @@ using System.Threading.Tasks;
 
 namespace myblog.Interfaces
 {
-    public class EFProtfolioRepository : IRepository
+    public class EFProtfolioRepository : IPortfolioRepository
     {
         private ApplicationDbContext db;
         public EFProtfolioRepository(ApplicationDbContext _context)
         {
             this.db = _context;
         }
-        public void Create(Model post)
+        public void Create(Portfolio post)
         {
             throw new NotImplementedException();
         }
 
-        public Model Delete(Guid id)
+        public Portfolio Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Model> Get()
+        public IEnumerable<Portfolio> Get()
         {
             Init();
-            return db.Portfolio.ToArray();
+            return db.Portfolios.ToArray();
         }
 
-        public Model Get(Guid id)
+        public Portfolio Get(Guid id)
         {
             throw new NotImplementedException();
         }
 
         public void Init()
         {
-            if(!db.Portfolio.Any())
+            if(!db.Portfolios.Any())
             {
-                db.Portfolio.AddRange
-                                    (
+                db.Portfolios.AddRange
+                (
                     new Portfolio() { Id = new Guid("00000000-0000-0000-0000-000000000001"), Link = "https://github.com/DobbiKov", Title = "DobbiKov acc", Name = "DobbiKov", Image = "huy" },
                     new Portfolio() { Id = new Guid("00000000-0000-0000-0000-000000000002"), Link = "https://github.com/DobbiKov/dobbikovBLOG", Title = "my DobbiKov Blog", Name = "DobbiKov Blog", Image = "huy" },
                     new Portfolio() { Id = new Guid("00000000-0000-0000-0000-000000000003"), Link = "https://github.com/DobbiKov/dobbikovBLOG", Title = "my DobbiKov Blog", Name = "DobbiKov Blog", Image = "huy" }
-                    );
+                );
+                db.SaveChanges();
             }
         }
 
-        public void Update(Model post)
+        public void Update(Portfolio post)
         {
             throw new NotImplementedException();
         }
