@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace myblog.Models
 {
-    public class Contacts : Model
+    public class Portfolio : Model
     {
         public override Guid Id { get; set; }
         public override string Name { get; set; }

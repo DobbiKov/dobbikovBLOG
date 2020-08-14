@@ -18,7 +18,7 @@ export default class App extends Component {
   render () {
     return (
       <Layout>
-        <Route exact path='/home' component={Home}/>
+        <Route exact path='/' component={Home}/>
         <Route path='/blog' component={Blog} />
         <Route path='/portfolio' component={Portfolio} />
         {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}

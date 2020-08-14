@@ -48,7 +48,7 @@ namespace myblog
             {
                 configuration.RootPath = "ClientApp/build";
             });
-            services.AddTransient<IContactsRepository, EFContactsRepository>();
+            services.AddTransient<IRepository, EFContactsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

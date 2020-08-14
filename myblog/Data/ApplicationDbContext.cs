@@ -18,5 +18,6 @@ namespace myblog.Data
         {
         }
         public DbSet<myblog.Models.Contacts> Contacts { get; set; }
+        public DbSet<myblog.Models.Portfolio> Portfolio { get; set; }
     }
 }

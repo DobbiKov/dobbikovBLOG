@@ -52,7 +52,7 @@ export class Contacts extends Component {
 
   async populateContacts() {
     // const token = await authService.getAccessToken();
-    const response = await fetch('Contacts', {
+    const response = await fetch('api/Contacts', {
       headers: {}
     });
     const data = await response.json();

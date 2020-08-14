@@ -12,20 +12,19 @@ using myblog.Models;
 namespace myblog.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("api/[controller]")]
     public class ContactsController : ControllerBase
     {
-        private readonly IContactsRepository contactsRepos;
+        private readonly IRepository contactsRepos;
 
-        public ContactsController(IContactsRepository _contactsRepos)
+        public ContactsController(IRepository _contactsRepos)
         {
             contactsRepos = _contactsRepos;
         }
 
         [HttpGet]
-        public IEnumerable<Contacts> Get()
+        public IEnumerable<Model> Get()
         {
-            contactsRepos.Init();
             return contactsRepos.Get();
         }
 
