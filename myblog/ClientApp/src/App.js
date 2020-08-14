@@ -4,8 +4,10 @@ import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Portfolio } from './components/portfolio';
-import {Contacts} from './components/Contacts';
-import {Blog} from './components/Blog';
+import { Contacts } from './components/Contacts';
+import { Blog } from './components/Blog';
+import { Post } from './components/Post';
+import GetId from './components/getId';
 // import AuthorizeRoute from './components/api-authorization/AuthorizeRoute';
 // import ApiAuthorizationRoutes from './components/api-authorization/ApiAuthorizationRoutes';
 // import { ApplicationPaths } from './components/api-authorization/ApiAuthorizationConstants';
@@ -19,6 +21,7 @@ export default class App extends Component {
     return (
       <Layout>
         <Route exact path='/' component={Home}/>
+        <Route path='/post/:id' component={GetId} />
         <Route path='/blog' component={Blog} />
         <Route path='/portfolio' component={Portfolio} />
         {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
