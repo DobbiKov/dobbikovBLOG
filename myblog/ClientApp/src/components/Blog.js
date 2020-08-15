@@ -1,10 +1,18 @@
 import React, {Component} from 'react'
-import {useHistory} from 'react-router-dom'
+import {useHistory} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const styles = {
     renderPostsA:{
         textDecoration: 'none',
-        borderBottom: '3px solid black'
+        color: 'black',
+        paddingRight: '5px'
+    },
+    renderPostsDiv: {
+        borderBottom: '3px solid black',
+        borderTop: '3px solid black',
+        borderRight: '3px solid black',
+        width: '200px'
     }
 }
 
@@ -20,12 +28,12 @@ export class Blog extends Component{
 
     static renderPosts(posts){
         return(
-            <div>
+            <div style = {{display: 'flex'}}>
                 {posts.map(post => 
-                    <a href={`post/${post.id}`} style = {styles.renderPostsA}><div key={post.id}>
+                    <Link to={`/post/${post.id}`} style={styles.renderPostsA}><div key={post.id} style = {styles.renderPostsDiv}>
                         <h3>{post.name}</h3>
                         <p>{post.title}</p>
-                    </div></a>
+                    </div></Link>
                     )}
             </div>
         )
