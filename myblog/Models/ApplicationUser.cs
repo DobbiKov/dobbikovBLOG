@@ -8,5 +8,9 @@ namespace myblog.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public Guid userId { get; set; }
+        public string Login { get; set; }
+        public string Password { get; set; }
+        public string Role { get; set; }
     }
 }
