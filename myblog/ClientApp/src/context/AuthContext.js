@@ -1,7 +1,11 @@
-import React from 'react';
+import {createContext} from 'react'
 
-export default class AuthContext{
-    _userId = null;
-    _token = null;
-    _isAuthenticated = false;
-}
+function noop() {}
+
+export const AuthContext = createContext({
+  token: null,
+  userId: null,
+  login: noop,
+  logout: noop,
+  isAuthenticated: false
+})
