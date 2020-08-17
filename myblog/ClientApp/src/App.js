@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
+import { Container } from 'reactstrap';
+import NavMenu from './components/NavMenu';
 import { Route } from 'react-router';
-import { Layout } from './components/Layout';
 import { Home } from './components/Home';
 import { FetchData } from './components/FetchData';
 import { Portfolio } from './components/portfolio';
 import { Contacts } from './components/Contacts';
 import { Blog } from './components/Blog';
-import { Post } from './components/Post';
-import GetId from './components/getId';
+import Post from './components/Post';
 import AuthContext from './context/AuthContext';
 //import {useAuth} from './hooks/auth.hook';
 
@@ -29,15 +29,18 @@ function App(){
     const __userId = this._userId;
     const __isAuthenticated = !!this._isAuthenticated;*/
   return (
-    <Layout>
-      <Route exact path='/' component={Home}/>
-      <Route path='/post/:id' component={GetId} />
-      <Route path='/blog' component={Blog} />
-      <Route path='/portfolio' component={Portfolio} />
-      {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
-      <Route path='/contact' component={Contacts} />
-      {/* //<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} /> */}
-    </Layout>
+    <div>
+      <NavMenu />
+      <Container>
+        <Route exact path='/' component={Home}/>
+        <Route path='/post/:id' component={Post} />
+        <Route path='/blog' component={Blog} />
+        <Route path='/portfolio' component={Portfolio} />
+        {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
+        <Route path='/contact' component={Contacts} />
+        {/* //<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} /> */}
+      </Container>
+    </div>
   );
 }
 export default App;

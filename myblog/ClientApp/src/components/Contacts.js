@@ -1,19 +1,19 @@
-import React, { Component } from 'react';
-// import authService from './api-authorization/AuthorizeService'
+import React, { Component, useState, useCallback, useEffect } from 'react';
 
-export class Contacts extends Component {
-  static displayName = Contacts.name;
+export const Contacts = () => {
+  const [contacts, setContacts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  constructor(props) {
-    super(props);
-    this.state = { contacts: [], loading: true };
-  }
+  const populateContacts = useCallback(async () => {
+    const response = await fetch('api/Contacts', {
+      headers: {}
+    });
+    const data = await response.json();
+    setContacts(data);
+    setLoading(false);   
+  }, []);
 
-  componentDidMount() {
-    this.populateContacts();
-  }
-
-  static renderContactsTable(contacts) {
+  const renderContactsTable = useCallback((_contacts) => {
     return (
       <table className='table table-striped' aria-labelledby="tabelLabel">
         <thead>
@@ -24,7 +24,7 @@ export class Contacts extends Component {
           </tr>
         </thead>
         <tbody>
-          {contacts.map(contact =>
+          {_contacts.map(contact =>
             <tr key={contact.id}>
               <td>{contact.name}</td>
               <td>{contact.title}</td>
@@ -34,28 +34,17 @@ export class Contacts extends Component {
         </tbody>
       </table>
     );
-  }
+  }, []);
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Contacts.renderContactsTable(this.state.contacts);
+  useEffect(() => {
+    populateContacts();
+  });
 
-    return (
-      <div>
-        <h1 id="tabelLabel" >Contacts</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        {contents}
-      </div>
-    );
-  }
-
-  async populateContacts() {
-    // const token = await authService.getAccessToken();
-    const response = await fetch('api/Contacts', {
-      headers: {}
-    });
-    const data = await response.json();
-    this.setState({ contacts: data, loading: false });
-  }
+  return(
+    <div>
+    <h1 id="tabelLabel" >Contacts</h1>
+    <p>This component demonstrates fetching data from the server.</p>
+    {loading ?  <p><em>Loading...</em></p> : renderContactsTable(contacts)}
+  </div>
+  )
 }

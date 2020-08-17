@@ -1,39 +1,40 @@
-import React, {Component} from 'react';
+import React, {Component, useCallback, useState, useEffect} from 'react';
+import {useParams} from 'react-router-dom';
 
-class Post extends Component{
-    static displaName = Post.name;
-    constructor(props){
-        super(props);
-        this.state = {post: {}, loading: true};
-    }
-    componentDidMount(){ this.populatePost(); }
+const Post = () => {
+    const [post, setPost] = useState({});
+    const [loading, setLoading] = useState(true);
+    const idx = useParams().id;
 
-    static renderPost(posts){ return ( 
-        <div>
-            <h1>{posts.name}</h1>
-            <h2>{posts.title}</h2>
-            <p>{posts.text}</p>
-        </div>
-    )}
-
-    render(){
-        let content = this.state.loading ? <h2>Loading...</h2> : Post.renderPost(this.state.post);
+    const populatePost = useCallback(async () => {
+        const response = await fetch(`api/Posts/${idx}`);
+        const data = await response.json();
+        setPost(data);
+        setLoading(false);  
+    }, []);
+    const renderPost = useCallback((_post) => {
         return(
             <div>
-                <h1>
-                    Post
-                </h1>
-                {content}
-            </div>
-        )
-    }
+            <h1>{_post.name}</h1>
+            <h2>{_post.title}</h2>
+            <p>{_post.text}</p>
+        </div>
+        );
+    }, []);
 
-    async populatePost(){
-        const response = await fetch(`api/Posts/${this.props.taskId}`);
-        const data = await response.json();
-        this.setState({post: data, loading: false});
-    }
+    useEffect(() => {
+        populatePost();
+    });
 
+    return(
+        <div>
+        <h1>
+            Post
+        </h1>
+        {loading ? <h2>Loadin...</h2> : renderPost(post)}
+    </div>
+    );
+    
 }
 
 export default Post;

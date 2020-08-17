@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 
-export class AuthPage extends Component{
-    render(){
+export const AuthPage = () => {
         return(
             <div>
                 <h2>Введите Email</h2>
@@ -11,5 +10,4 @@ export class AuthPage extends Component{
                 <input type="submit" value="Авторизоваться" onClick={}/>
             </div>
         )
-    }
 }

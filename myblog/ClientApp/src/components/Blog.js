@@ -1,4 +1,4 @@
-import React, {Component} from 'react'
+import React, {Component, useState, useCallback, useEffect} from 'react'
 import {useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
@@ -16,45 +16,40 @@ const styles = {
     }
 }
 
-export class Blog extends Component{
-    static displayName = Blog.name;
-    constructor(props){
-        super(props);
-        this.state = {posts: [], loading: true};
-    }
-    componentDidMount() {
-        this.populatePosts();
-    }
+export const Blog = () => {
+    const [posts, setPosts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
-    static renderPosts(posts){
+    const populatePosts = useCallback(async () => {
+        const response = await fetch('api/Posts', {
+            headers: {}
+        });
+        const data = await response.json();
+        setPosts(data);
+        setLoading(false);
+    }, []);
+
+    const renderPosts = useCallback((_posts) => {
         return(
             <div style = {{display: 'flex'}}>
-                {posts.map(post => 
+                {_posts.map(post => 
                     <Link to={`/post/${post.id}`} style={styles.renderPostsA}  key={post.id}><div style = {styles.renderPostsDiv}>
                         <h3>{post.name}</h3>
                         <p>{post.title}</p>
                     </div></Link>
-                    )}
+                )}
             </div>
-        )
-    }
+        )       
+    }, []);
 
-    render(){
-        let content = this.state.loading ? <h1>Loading...</h1> : Blog.renderPosts(this.state.posts);
-        return(
-            <div>
-                <h1>Blog</h1>
-                {content}
-            </div>
-        )
-    }
+    useEffect(() => {
+        populatePosts();
+    });
 
-    async populatePosts() {
-        // const token = await authService.getAccessToken();
-        const response = await fetch('api/Posts', {
-          headers: {}
-        });
-        const data = await response.json();
-        this.setState({ posts: data, loading: false });
-      }
+    return(
+        <div>
+            <h1>Blog</h1>
+            {loading ? <h1>Loading...</h1> : renderPosts(posts)}
+        </div>
+    )
 }

@@ -1,14 +1,10 @@
 import React, { Component } from 'react';
 
-export class Home extends Component {
-  static displayName = Home.name;
-
-  render () {
-    return (
-      <div>
-        <h1>DobbiKov</h1>
-        <p>asdhjkdsafkjlwopqadksflbdkfllpw[]adlsfknkllp[adlsfkvnbcklfldp[]aspflk;vlbmlml</p>
-      </div>
-    );
-  }
+export const Home = () => {
+  return (
+    <div>
+      <h1>DobbiKov</h1>
+      <p>adssafsdfvdrwdfsbfgkrefjidijhbreuidsfvhjgbjfhuiwedjsfvdjhuidsjadcnkvdjfhiusaidjcvnkdhjfuissofvkjj</p>
+    </div>
+  );
 }
