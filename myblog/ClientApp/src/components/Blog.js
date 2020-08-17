@@ -44,7 +44,7 @@ export const Blog = () => {
 
     useEffect(() => {
         populatePosts();
-    });
+    }, []);
 
     return(
         <div>

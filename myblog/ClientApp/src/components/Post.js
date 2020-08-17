@@ -5,13 +5,7 @@ const Post = () => {
     const [post, setPost] = useState({});
     const [loading, setLoading] = useState(true);
     const idx = useParams().id;
-
-    const populatePost = useCallback(async () => {
-        const response = await fetch(`api/Posts/${idx}`);
-        const data = await response.json();
-        setPost(data);
-        setLoading(false);  
-    }, []);
+    
     const renderPost = useCallback((_post) => {
         return(
             <div>
@@ -22,16 +16,21 @@ const Post = () => {
         );
     }, []);
 
-    useEffect(() => {
-        populatePost();
-    });
+    useEffect(async () => {
+        try{
+            const response = await fetch(`api/Posts/${idx}`);
+            const data = await response.json();
+            setPost(data);
+            setLoading(false);  
+        }catch(e) {}
+    }, []);
 
     return(
         <div>
         <h1>
             Post
         </h1>
-        {loading ? <h2>Loadin...</h2> : renderPost(post)}
+        {loading ? <h2>Loading...</h2> : renderPost(post)}
     </div>
     );
     

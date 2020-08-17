@@ -15,6 +15,7 @@ namespace myblog.Data
         public DbSet<Contacts> Contacts { get; set; }
         public DbSet<Portfolio> Portfolios { get; set; }
         public DbSet<Post> posts { get; set; }
+        public DbSet<ApplicationUser> users { get; set; }
 
 
         public ApplicationDbContext(

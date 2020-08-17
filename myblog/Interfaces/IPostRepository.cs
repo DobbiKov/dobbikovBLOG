@@ -11,9 +11,9 @@ namespace myblog.Interfaces
     {
         Task<IEnumerable<Post>> GetAsync();
         Task<ActionResult<Post>> GetAsync(Guid id);
-        void Create(Post post);
-        void Update(Post post);
-        Post Delete(Guid id);
+        Task Create(Post post);
+        Task Update(Post post);
+        Task<ActionResult<Post>> Delete(Guid id);
         Task Init();
     }
 }

@@ -38,7 +38,7 @@ export const Contacts = () => {
 
   useEffect(() => {
     populateContacts();
-  });
+  }, []);
 
   return(
     <div>

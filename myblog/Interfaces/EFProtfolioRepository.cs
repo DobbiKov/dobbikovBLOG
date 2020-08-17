@@ -28,7 +28,7 @@ namespace myblog.Interfaces
 
         public async Task<IEnumerable<Portfolio>> GetAsync()
         {
-            Init();
+            await Init();
             return await db.Portfolios.ToArrayAsync();
         }
 

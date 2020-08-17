@@ -44,7 +44,7 @@ export const Portfolio = () => {
   useEffect(() => {
     populatePortfolio();
     //renderTable(portfolios);
-  }, [portfolios]);
+  }, []);
 
   return (
     <div>

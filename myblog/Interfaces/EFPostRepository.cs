@@ -16,19 +16,19 @@ namespace myblog.Interfaces
         {
             db = _db;
         }
-        public void Create(Post post)
+        public Task Create(Post post)
         {
             throw new NotImplementedException();
         }
 
-        public Post Delete(Guid id)
+        public Task<ActionResult<Post>> Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<Post>> GetAsync()
         {
-            Init();
+            await Init();
             return await db.posts.ToArrayAsync();
         }
 
@@ -52,7 +52,7 @@ namespace myblog.Interfaces
             }
         }
 
-        public void Update(Post post)
+        public Task Update(Post post)
         {
             throw new NotImplementedException();
         }

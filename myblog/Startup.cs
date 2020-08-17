@@ -12,6 +12,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using myblog.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace myblog
 {
@@ -36,10 +38,10 @@ namespace myblog
 
             services.AddIdentityServer()
                 .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
+            
             services.AddAuthentication()
                 .AddIdentityServerJwt();
-            /*
+            
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                     .AddJwtBearer(options =>
                     {
@@ -63,8 +65,8 @@ namespace myblog
                             // валидация ключа безопасности
                             ValidateIssuerSigningKey = true,
                         };
-                    });
-             */
+                   });
+             
 
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -77,6 +79,7 @@ namespace myblog
             services.AddTransient<IPortfolioRepository, EFProtfolioRepository>();
             services.AddTransient<IContactRepository, EFContactsRepository>();
             services.AddTransient<IPostRepository, EFPostRepository>();
+            services.AddTransient<IAccountsRepository, EFAccountsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
