@@ -24,9 +24,9 @@ namespace myblog.Controllers
 
         // GET: api/Portfolios
         [HttpGet]
-        public IEnumerable<Portfolio> Get()
+        public async Task<IEnumerable<Portfolio>> Get()
         {
-            return repos.Get();
+            return await repos.GetAsync();
         }
     }
 }

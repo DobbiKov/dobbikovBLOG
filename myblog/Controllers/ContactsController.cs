@@ -23,9 +23,9 @@ namespace myblog.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Contacts> Get()
+        public async Task<IEnumerable<Contacts>> Get()
         {
-            return contactsRepos.Get();
+            return await contactsRepos.GetAsync();
         }
 
         // GET: api/Contacts

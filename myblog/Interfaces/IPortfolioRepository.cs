@@ -1,4 +1,5 @@
-﻿using myblog.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using myblog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ namespace myblog.Interfaces
 {
     public interface IPortfolioRepository
     {
-        IEnumerable<Portfolio> Get();
-        Portfolio Get(Guid id);
+        Task<IEnumerable<Portfolio>> GetAsync();
+        Task<ActionResult<Portfolio>> GetAsync(Guid id);
         void Create(Portfolio post);
         void Update(Portfolio post);
         Portfolio Delete(Guid id);
-        void Init();
+        Task Init();
     }
 }

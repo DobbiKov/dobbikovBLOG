@@ -1,4 +1,5 @@
-﻿using myblog.Models;
+﻿using Microsoft.AspNetCore.Mvc;
+using myblog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,11 +9,11 @@ namespace myblog.Interfaces
 {
     public interface IPostRepository
     {
-        IEnumerable<Post> Get();
-        Post Get(Guid id);
+        Task<IEnumerable<Post>> GetAsync();
+        Task<ActionResult<Post>> GetAsync(Guid id);
         void Create(Post post);
         void Update(Post post);
         Post Delete(Guid id);
-        void Init();
+        Task Init();
     }
 }

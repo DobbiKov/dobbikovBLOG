@@ -30,7 +30,7 @@ export class Blog extends Component{
         return(
             <div style = {{display: 'flex'}}>
                 {posts.map(post => 
-                    <Link to={`/post/${post.id}`} style={styles.renderPostsA}><div key={post.id} style = {styles.renderPostsDiv}>
+                    <Link to={`/post/${post.id}`} style={styles.renderPostsA}  key={post.id}><div style = {styles.renderPostsDiv}>
                         <h3>{post.name}</h3>
                         <p>{post.title}</p>
                     </div></Link>

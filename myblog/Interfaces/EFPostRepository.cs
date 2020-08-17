@@ -1,4 +1,6 @@
-﻿using myblog.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using myblog.Data;
 using myblog.Models;
 using System;
 using System.Collections.Generic;
@@ -24,29 +26,29 @@ namespace myblog.Interfaces
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Post> Get()
+        public async Task<IEnumerable<Post>> GetAsync()
         {
             Init();
-            return db.posts.ToArray();
+            return await db.posts.ToArrayAsync();
         }
 
-        public Post Get(Guid id)
+        public async Task<ActionResult<Post>> GetAsync(Guid id)
         {
-            var post = db.posts.FirstOrDefault(x => x.Id == id);
+            var post = await db.posts.FirstOrDefaultAsync(x => x.Id == id);
             return post;
         }
 
-        public void Init()
+        public async Task Init()
         {
             if (!db.posts.Any())
             {
-                db.posts.AddRange
+                await db.posts.AddRangeAsync
                 (
                     new Post() { Id = new Guid("00000000-0000-0000-0000-000000000001"), Link = "https://github.com/DobbiKov", Title = "DobbiKov acc", Name = "DobbiKov", Text = "a", Image = "huy" },
                     new Post() { Id = new Guid("00000000-0000-0000-0000-000000000002"), Link = "https://github.com/DobbiKov/dobbikovBLOG", Title = "my DobbiKov Blog", Name = "DobbiKov Blog", Text = "a", Image = "huy" },
                     new Post() { Id = new Guid("00000000-0000-0000-0000-000000000003"), Link = "https://github.com/DobbiKov/dobbikovBLOG", Title = "my DobbiKov Blog", Name = "DobbiKov Blog", Text = "a", Image = "huy" }
                 );
-                db.SaveChanges();
+                await db.SaveChangesAsync();
             }
         }
 

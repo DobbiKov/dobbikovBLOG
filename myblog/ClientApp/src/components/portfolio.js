@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useCallback, useEffect } from 'react';
 
 const styles = {
     mz:{
@@ -10,10 +10,11 @@ const styles = {
       borderRight: '2px solid black',
       width: '300px', 
       paddingBottom: '5px',
+      marginLeft: '10px',
       textAlign: 'center'
     }
 };
-
+/*
 export class Portfolio extends Component {
   static displayName = Portfolio.name;
 
@@ -56,4 +57,46 @@ export class Portfolio extends Component {
     const data = await response.json();
     this.setState({portfolios: data, loading: false});
   }
+}*/
+
+export const Portfolio = () => {
+  const [portfolios, setPortfolios] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const renderTable = useCallback((_portfolios) => {
+    return(
+      <div style={{display: 'flex', marginTop: '15px'}}>
+        { _portfolios.map((portfolio) => 
+            <div key={portfolio.id} style={styles.div}>
+              <h3 style={styles.mz}>{portfolio.name}</h3>
+              <p style={styles.mz}>{portfolio.title}</p>
+              <a href={portfolio.link} style = {{textDecoration: 'none'}}>See a project</a>
+            </div>
+        ) }
+        </div>
+    )
+  }, []);
+  
+  const populatePortfolio = useCallback(async () =>
+  {
+    const response = await fetch('api/Portfolios', {headers: {}});
+    const data = await response.json();
+    setPortfolios(data);
+    setLoading(false);
+  }, []);
+
+  useEffect(() => {
+    populatePortfolio();
+    //renderTable(portfolios);
+  }, [portfolios]);
+
+  return (
+    <div>
+      <h1>My Portfolios</h1>
+      <div style={{display: 'flex', justifyContent: 'center'}}>
+      {loading ? <p><em>Loading...</em></p> : renderTable(portfolios)}
+      </div>
+    </div>
+  );
+
 }

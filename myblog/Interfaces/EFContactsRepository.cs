@@ -1,8 +1,11 @@
-﻿using myblog.Data;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using myblog.Data;
 using myblog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace myblog.Interfaces
@@ -24,15 +27,16 @@ namespace myblog.Interfaces
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Contacts> Get()
+        public async Task<IEnumerable<Contacts>> GetAsync()
         {
             Init();
-            return db.Contacts.ToArray();
+            return await db.Contacts.ToArrayAsync();
         }
 
-        public Contacts Get(Guid id)
+        public async Task<ActionResult<Contacts>> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var contact = db.Contacts.FirstOrDefaultAsync(x => x.Id == id);
+            return await contact;
         }
 
         public void Update(Contacts post)

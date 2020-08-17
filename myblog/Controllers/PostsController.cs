@@ -22,15 +22,15 @@ namespace myblog.Controllers
         }
 
         [HttpGet]
-        public IEnumerable<Post> Get()
+        public async Task<IEnumerable<Post>> Get()
         {
-            return repos.Get();
+            return await repos.GetAsync();
         }
 
         [HttpGet("{id}")]
-        public IActionResult Get(Guid id)
+        public async Task<ActionResult<Post>> Get(Guid id)
         {
-            return new ObjectResult(repos.Get(id));
+            return await repos.GetAsync(id) ?? NotFound();
         }
     }
 }
