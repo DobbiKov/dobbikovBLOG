@@ -25,11 +25,11 @@ namespace myblog.Controllers
             return await repos.GetAsync();
         }
         [HttpPost("/api/Accounts/token")]
-        public IActionResult GetToken([FromBody] LoginModel model)
+        public IActionResult GetToken(string username, string password)
         {
-            var res = repos.GetToken(model.username, model.password);
+            var res = repos.GetToken(username, password);
 
-            return res ?? BadRequest(new { errorText = $"Неправильный логин, либо пароль. username: {model.username}" });
+            return res ?? BadRequest(new { errorText = $"Неправильный логин, либо пароль. username: {username}" });
         }
     }
 }
