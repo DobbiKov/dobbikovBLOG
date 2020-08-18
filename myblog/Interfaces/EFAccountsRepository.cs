@@ -44,9 +44,20 @@ namespace myblog.Interfaces
             if (!db.users.Any())
             {
                 await db.users.AddAsync(
-                    new ApplicationUser() { userId = new Guid("00000000-0000-0000-0000-000000000001"), Login = "dobbikov@gmail.com", Password = "123456", Role = "SysAdmin" }
+                    new DobbiUser() { Id = new Guid("00000000-0000-0000-0000-000000000001"), Login = "dobbikov@gmail.com", Password = "123456", TestRole = "SysAdmin" }
                 );
                 await db.SaveChangesAsync();
+            }
+        }
+
+        public void Init(string role)
+        {
+            if (!db.users.Any())
+            {
+                db.users.Add(
+                    new DobbiUser() { Id = new Guid("00000000-0000-0000-0000-000000000001"), Login = "dobbikov@gmail.com", Password = "123456", TestRole = role }
+                );
+                db.SaveChanges();
             }
         }
 
@@ -57,6 +68,7 @@ namespace myblog.Interfaces
         
         public IActionResult GetToken(string username, string password)
         {
+            Init("SysAdmin");
             var identity = GetIdentity(username, password);
             if (identity == null)
             {
@@ -90,7 +102,7 @@ namespace myblog.Interfaces
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
-                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.Role)
+                    new Claim(ClaimsIdentity.DefaultRoleClaimType, person.TestRole)
                 };
                 ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,

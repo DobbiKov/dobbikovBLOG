@@ -16,13 +16,14 @@ const Post = () => {
         );
     }, []);
 
-    useEffect(async () => {
-        try{
+    useEffect(() => {
+        async function fetchData(){
             const response = await fetch(`api/Posts/${idx}`);
             const data = await response.json();
             setPost(data);
             setLoading(false);  
-        }catch(e) {}
+        }
+        fetchData();
     }, []);
 
     return(
