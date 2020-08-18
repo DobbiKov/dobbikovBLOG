@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using myblog.Data;
 using myblog.Models;
@@ -18,23 +19,24 @@ namespace myblog.Interfaces
         {
             db = _db;
         }
-        public Task Create(ApplicationUser post)
+        public Task Create(DobbiUser post)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ActionResult<ApplicationUser>> Delete(Guid id)
+        public Task<ActionResult<DobbiUser>> Delete(Guid id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<IEnumerable<ApplicationUser>> GetAsync()
+        public async Task<IEnumerable<DobbiUser>> GetAsync()
         {
 
-            throw new NotImplementedException();
+            var res = await db.users.ToArrayAsync();
+            return res;
         }
 
-        public Task<ActionResult<ApplicationUser>> GetAsync(Guid id)
+        public Task<ActionResult<DobbiUser>> GetAsync(Guid id)
         {
             throw new NotImplementedException();
         }
@@ -61,7 +63,7 @@ namespace myblog.Interfaces
             }
         }
 
-        public Task Update(ApplicationUser post)
+        public Task Update(DobbiUser post)
         {
             throw new NotImplementedException();
         }
@@ -87,8 +89,8 @@ namespace myblog.Interfaces
 
             var response = new
             {
-                access_token = encodedJwt,
-                username = identity.Name
+                token = encodedJwt,
+                userId = identity.Name
             };
 
             return new OkObjectResult(response);
@@ -96,7 +98,7 @@ namespace myblog.Interfaces
         }
         public ClaimsIdentity GetIdentity(string username, string password)
         {
-            var person = db.users.FirstOrDefault(x => x.Login == username && x.Password == password);
+            var person = db.users.FirstOrDefault(x => x.Login == username/* && x.Password == password*/);
             if(person != null)
             {
                 var claims = new List<Claim>

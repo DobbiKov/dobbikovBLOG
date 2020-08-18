@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using myblog.Interfaces;
+using myblog.Models;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -18,13 +19,17 @@ namespace myblog.Controllers
         {
             repos = _repos;
         }
-
-        [HttpPost("/api/Accounts/token")]
-        public IActionResult GetToken(string username, string password)
+        [HttpGet]
+        public async Task<IEnumerable<DobbiUser>> Get()
         {
-            var res = repos.GetToken(username, password);
+            return await repos.GetAsync();
+        }
+        [HttpPost("/api/Accounts/token")]
+        public IActionResult GetToken([FromBody] LoginModel model)
+        {
+            var res = repos.GetToken(model.username, model.password);
 
-            return res ?? BadRequest(new { errorText = "Invalid username or password." });
+            return res ?? BadRequest(new { errorText = $"Неправильный логин, либо пароль. username: {model.username}" });
         }
     }
 }
