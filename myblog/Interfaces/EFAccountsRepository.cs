@@ -36,9 +36,10 @@ namespace myblog.Interfaces
             return res;
         }
 
-        public Task<ActionResult<DobbiUser>> GetAsync(Guid id)
+        public async Task<ActionResult<DobbiUser>> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var user = await db.users.FirstOrDefaultAsync(x => x.Id == id);
+            return user;
         }
 
         public async Task Init()
@@ -89,7 +90,8 @@ namespace myblog.Interfaces
             var response = new
             {
                 token = encodedJwt,
-                userId = identity.Id
+                userId = identity.Id,
+                roleId = identity.Role
             };
 
             return new OkObjectResult(response);

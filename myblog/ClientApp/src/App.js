@@ -20,11 +20,11 @@ import './custom.css'
 import { useAuth } from './hooks/auth.hook';
 
 function App(){
-  const {login, logout, token, userId} = useAuth();
+  const {login, logout, token, userId, roleId} = useAuth();
   const isAuthenticated = !!token;
   return (
     <AuthContext.Provider value={{
-      login, logout, token, userId, isAuthenticated
+      login, logout, token, userId, roleId, isAuthenticated
     }}>
       <div>
         <NavMenu />
@@ -36,6 +36,7 @@ function App(){
           {/* <AuthorizeRoute path='/fetch-data' component={FetchData} /> */}
           <Route path='/contact' component={Contacts} />
           <Route path='/auth' component={AuthPage}/>
+          <Route path='/user' component={AuthPage}/>
           {/* //<Route path={ApplicationPaths.ApiAuthorizationPrefix} component={ApiAuthorizationRoutes} /> */}
         </Container>
       </div>

@@ -24,7 +24,7 @@ export const AuthPage = () => {
             const data = await response.json();
 
             if(response.ok === true){
-                auth.login(data.token, data.userId);
+                auth.login(data.token, data.userId, data.roleId);
                 console.log("Все ок");
                 //<Redirect to="/"/>
             }

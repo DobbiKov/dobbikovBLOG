@@ -24,6 +24,11 @@ namespace myblog.Controllers
         {
             return await repos.GetAsync();
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<DobbiUser>> Get(Guid id)
+        {
+            return await repos.GetAsync(id) ?? NotFound();
+        }
 
         [HttpPost("/api/Accounts/token")]
         public IActionResult GetToken([FromBody] LoginModel model)
