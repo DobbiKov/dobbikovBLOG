@@ -82,7 +82,6 @@ namespace myblog.Interfaces
                     issuer: AuthOptions.ISSUER,
                     audience: AuthOptions.AUDIENCE,
                     notBefore: now,
-                    claims: identity.Claims,
                     expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
                     signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
             var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
@@ -90,18 +89,19 @@ namespace myblog.Interfaces
             var response = new
             {
                 token = encodedJwt,
-                userId = identity.Name
+                userId = identity.Id
             };
 
             return new OkObjectResult(response);
             /*throw new NotImplementedException();*/
         }
-        public ClaimsIdentity GetIdentity(string username, string password)
+        public DobbiUser GetIdentity(string username, string password)
         {
-            var person = db.users.FirstOrDefault(x => x.Login == username/* && x.Password == password*/);
+            var person = db.users.FirstOrDefault(x => x.Login == username && x.Password == password);
             if(person != null)
             {
-                var claims = new List<Claim>
+                return person;
+                /*var claims = new List<Claim>
                 {
                     new Claim(ClaimsIdentity.DefaultNameClaimType, person.Login),
                     new Claim(ClaimsIdentity.DefaultRoleClaimType, person.TestRole)
@@ -109,7 +109,7 @@ namespace myblog.Interfaces
                 ClaimsIdentity claimsIdentity =
                 new ClaimsIdentity(claims, "Token", ClaimsIdentity.DefaultNameClaimType,
                     ClaimsIdentity.DefaultRoleClaimType);
-                return claimsIdentity;
+                return claimsIdentity;*/
             }
 
             return null;

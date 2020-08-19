@@ -12,7 +12,7 @@ namespace myblog.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class AccountsController : ControllerBase
+    public class AccountsController : Controller
     {
         private readonly IAccountsRepository repos;
         public AccountsController(IAccountsRepository _repos)
@@ -24,12 +24,13 @@ namespace myblog.Controllers
         {
             return await repos.GetAsync();
         }
-        [HttpPost("/api/Accounts/token")]
-        public IActionResult GetToken(string username, string password)
-        {
-            var res = repos.GetToken(username, password);
 
-            return res ?? BadRequest(new { errorText = $"Неправильный логин, либо пароль. username: {username}" });
+        [HttpPost("/api/Accounts/token")]
+        public IActionResult GetToken([FromBody] LoginModel model)
+        {
+            var res = repos.GetToken(model.username, model.password);
+
+            return res ?? BadRequest(new { errorText = $"Неправильный логин, либо пароль. username: {model.username}" });
         }
     }
 }

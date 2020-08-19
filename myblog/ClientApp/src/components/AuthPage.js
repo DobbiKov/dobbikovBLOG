@@ -1,4 +1,5 @@
 import React, {Component, useContext, useState, useEffect} from 'react';
+import {Redirect, Route} from 'react-router-dom';
 import {AuthContext} from '../context/AuthContext';
 
 export const AuthPage = () => {
@@ -16,7 +17,7 @@ export const AuthPage = () => {
             console.log({...form});
             const response = await fetch('api/Accounts/token', {
                 method: 'POST',
-                headers: {"Accept": "application/json"},
+                headers: {"Accept": "application/json", "Content-Type" : "application/json"},
                 body: JSON.stringify({...form})
             });
 
@@ -24,10 +25,11 @@ export const AuthPage = () => {
 
             if(response.ok === true){
                 auth.login(data.token, data.userId);
-                console.log(data);
+                console.log("Все ок");
+                //<Redirect to="/"/>
             }
         }
-
+        if(auth.isAuthenticated) {return <Redirect to="/"/>} else{
         return(
             <div style={{display: 'block'}}>
                 <h2>Введите Email</h2>
@@ -37,4 +39,5 @@ export const AuthPage = () => {
                 <input type="submit" value="Авторизоваться" onClick={loginHandler}/>
             </div>
         )
+        }
 }
