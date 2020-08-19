@@ -12,5 +12,6 @@ namespace myblog.Models
         public string Password { get; set; }
         public DobbiRoles Role { get; set; }
         public string TestRole { get; set; }
+        public Guid UserRoleId { get; set; }
     }
 }

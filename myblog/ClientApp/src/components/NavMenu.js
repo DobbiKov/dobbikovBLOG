@@ -6,11 +6,10 @@ import {AuthContext} from '../context/AuthContext';
 // import { LoginMenu } from './api-authorization/LoginMenu';
 import './NavMenu.css';
 
-function NavMenu(){
+export const  NavMenu = () => {
   const [collapsed, setCollapsed] = useState(true);
-  const {login, logout, token, userId, roleId} = useAuth();
-  const isAuthenticated = !!token;
   const auth = useContext(AuthContext);
+  const isAuthenticated = !!auth.token;
 
   const toggleNavbar = useCallback(() => {
     setCollapsed(!collapsed);
@@ -40,20 +39,21 @@ function NavMenu(){
               {/* <LoginMenu>
               </LoginMenu> */}
               {isAuthenticated ? 
-              <div>
-              <NavItem>
-                <NavLink tag={Link} className="text-dark" to="/user">{userId}</NavLink>
-              </NavItem> 
-              <NavItem>
-                <NavLink tag={Label} className="text-dark" onClick={logoutHandler}>LogOut</NavLink>
-              </NavItem></div> :
-              <div>
-              <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/auth">Login</NavLink>
-            </NavItem> 
-            <NavItem>
-              <NavLink tag={Link} className="text-dark" to="/register">Register</NavLink>
-            </NavItem></div>
+              <div style={{display: 'flex'}}>
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/user">{auth.name}</NavLink>
+                </NavItem> 
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" onClick={logoutHandler} to="/">LogOut</NavLink>
+                </NavItem></div> :
+              <div style={{display: 'flex'}}>
+                <NavItem>
+                <NavLink tag={Link} className="text-dark" to="/auth">Login</NavLink>
+                </NavItem> 
+                <NavItem>
+                  <NavLink tag={Link} className="text-dark" to="/register">Register</NavLink>
+                </NavItem>
+            </div>
               }
             </ul>
           </Collapse>
@@ -62,5 +62,3 @@ function NavMenu(){
     </header>
   );
 }
-
-export default NavMenu;

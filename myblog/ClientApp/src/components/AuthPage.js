@@ -24,12 +24,10 @@ export const AuthPage = () => {
             const data = await response.json();
 
             if(response.ok === true){
-                auth.login(data.token, data.userId, data.roleId);
-                console.log("Все ок");
-                //<Redirect to="/"/>
+                auth.login(data.token, data.userId, data.name);
             }
         }
-        if(auth.isAuthenticated) {return <Redirect to="/"/>} else{
+        if(auth.isAuthenticated) {return <Redirect to="/user"/>} else{
         return(
             <div style={{display: 'block'}}>
                 <h2>Введите Email</h2>

@@ -24,6 +24,7 @@ namespace myblog.Controllers
         {
             return await repos.GetAsync();
         }
+
         [HttpGet("{id}")]
         public async Task<ActionResult<DobbiUser>> Get(Guid id)
         {

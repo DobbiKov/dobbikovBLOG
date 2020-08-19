@@ -58,7 +58,7 @@ namespace myblog.Interfaces
             if (!db.users.Any())
             {
                 db.users.Add(
-                    new DobbiUser() { Id = new Guid("00000000-0000-0000-0000-000000000001"), Login = "dobbikov@gmail.com", Password = "123456", TestRole = role }
+                    new DobbiUser() { Id = new Guid("00000000-0000-0000-0000-000000000001"), Login = "dobbikov@gmail.com", Password = "123456", TestRole = role}
                 );
                 db.SaveChanges();
             }
@@ -91,7 +91,8 @@ namespace myblog.Interfaces
             {
                 token = encodedJwt,
                 userId = identity.Id,
-                roleId = identity.Role
+                roleId = identity.UserRoleId,
+                name = identity.Login
             };
 
             return new OkObjectResult(response);
