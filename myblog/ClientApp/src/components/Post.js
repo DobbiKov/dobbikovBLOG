@@ -1,10 +1,12 @@
 import React, {Component, useCallback, useState, useEffect} from 'react';
 import {useParams} from 'react-router-dom';
+import {useHttp} from '../hooks/http.hook';
 
 const Post = () => {
     const [post, setPost] = useState({});
     const [loading, setLoading] = useState(true);
     const idx = useParams().id;
+    const {request} = useHttp();
     
     const renderPost = useCallback((_post) => {
         return(
@@ -18,7 +20,7 @@ const Post = () => {
 
     useEffect(() => {
         async function fetchData(){
-            const response = await fetch(`api/Posts/${idx}`);
+            const response = await request(`api/Posts/${idx}`);
             const data = await response.json();
             setPost(data);
             setLoading(false);  

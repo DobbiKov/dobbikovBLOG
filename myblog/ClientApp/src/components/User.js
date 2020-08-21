@@ -1,6 +1,7 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {AuthContext} from '../context/AuthContext';
 import {Redirect} from 'react-router-dom';
+import {useHttp} from '../hooks/http.hook';
 
 export const User = () => {
     const auth = useContext(AuthContext);
@@ -8,13 +9,13 @@ export const User = () => {
     const [role, setRole] = useState({});
     const [loading2, setLoading2] = useState(true);
     const [loading, setLoading] = useState(true);
-    const populateUser = async (_userId) => {
-        if(_userId == null) { setTimeout(() => { populateUser(); }, 2000); console.log("userId == null таймер"); }else{
-            const response = await fetch(`/api/Accounts/${_userId}`, {headers: {}});
-            const data = await response.json();
-            setUser(data);
-            setLoading(false);
-        }
+    const {request} = useHttp();
+        const populateUser = async (_userId) => {
+        const response = await fetch(`/api/Accounts/${auth.token}`, {headers: {}});
+        const data = await response.json();
+        setUser(data);
+        setLoading(false);
+        populateUserRole(data.userRoleId);
     }
     const populateUserRole = async (idx) => {
         const response = await fetch(`/api/Roles/${idx}`, {headers: {}});
@@ -23,8 +24,7 @@ export const User = () => {
         setLoading2(false);
     }
     useEffect(() => {
-        populateUser(auth.userId);
-        populateUserRole(auth.userId);
+        populateUser();
     }, []);
     return(
         <div>

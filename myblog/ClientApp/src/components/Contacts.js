@@ -1,13 +1,13 @@
 import React, { Component, useState, useCallback, useEffect } from 'react';
+import {useHttp} from '../hooks/http.hook';
 
 export const Contacts = () => {
   const [contacts, setContacts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const {request} = useHttp();
 
   const populateContacts = useCallback(async () => {
-    const response = await fetch('api/Contacts', {
-      headers: {}
-    });
+    const response = await request('api/Contacts');
     const data = await response.json();
     setContacts(data);
     setLoading(false);   

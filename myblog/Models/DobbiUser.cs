@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -13,5 +14,6 @@ namespace myblog.Models
         public DobbiRoles Role { get; set; }
         public string TestRole { get; set; }
         public Guid UserRoleId { get; set; }
+        public string Token { get; set; }
     }
 }

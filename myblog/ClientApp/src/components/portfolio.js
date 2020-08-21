@@ -1,4 +1,5 @@
 import React, { Component, useState, useCallback, useEffect } from 'react';
+import {useHttp} from '../hooks/http.hook';
 
 const styles = {
     mz:{
@@ -16,6 +17,7 @@ const styles = {
 };
 
 export const Portfolio = () => {
+  const {request} = useHttp();
   const [portfolios, setPortfolios] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +37,7 @@ export const Portfolio = () => {
   
   const populatePortfolio = useCallback(async () =>
   {
-    const response = await fetch('api/Portfolios', {headers: {}});
+    const response = await request('api/Portfolios');
     const data = await response.json();
     setPortfolios(data);
     setLoading(false);

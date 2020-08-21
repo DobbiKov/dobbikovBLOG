@@ -36,9 +36,9 @@ namespace myblog.Interfaces
             return res;
         }
 
-        public async Task<ActionResult<DobbiUser>> GetAsync(Guid id)
+        public async Task<ActionResult<DobbiUser>> GetAsync(string token)
         {
-            var user = await db.users.FirstOrDefaultAsync(x => x.Id == id);
+            var user = await db.users.FirstOrDefaultAsync(x => x.Token == token);
             return user;
         }
 
@@ -89,11 +89,12 @@ namespace myblog.Interfaces
 
             var response = new
             {
-                token = encodedJwt,
-                userId = identity.Id,
-                roleId = identity.UserRoleId,
-                name = identity.Login
+                token = encodedJwt
             };
+
+            identity.Token = encodedJwt;
+            db.Entry(identity).State = EntityState.Modified;
+            db.SaveChanges();
 
             return new OkObjectResult(response);
             /*throw new NotImplementedException();*/
@@ -116,6 +117,31 @@ namespace myblog.Interfaces
             }
 
             return null;
+        }
+
+        public IActionResult UpdateToken(string _token)
+        {
+            var res = db.users.FirstOrDefault(x => x.Token == _token);
+            if (res == null) return null;
+            var now = DateTime.UtcNow;
+            // создаем JWT-токен
+            var jwt = new JwtSecurityToken(
+                    issuer: AuthOptions.ISSUER,
+                    audience: AuthOptions.AUDIENCE,
+                    notBefore: now,
+                    expires: now.Add(TimeSpan.FromMinutes(AuthOptions.LIFETIME)),
+                    signingCredentials: new SigningCredentials(AuthOptions.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256));
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(jwt);
+
+            var response = new
+            {
+                token = encodedJwt
+            };
+
+            res.Token = encodedJwt;
+            db.Entry(res).State = EntityState.Modified;
+            db.SaveChanges();
+            return new OkObjectResult(response);
         }
     }
 }

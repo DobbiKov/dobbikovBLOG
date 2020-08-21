@@ -1,6 +1,7 @@
 import React, {Component, useState, useCallback, useEffect} from 'react'
 import {useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
+import {useHttp} from '../hooks/http.hook';
 
 const styles = {
     renderPostsA:{
@@ -19,11 +20,10 @@ const styles = {
 export const Blog = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const {request} = useHttp();
 
     const populatePosts = useCallback(async () => {
-        const response = await fetch('api/Posts', {
-            headers: {}
-        });
+        const response = await request('api/Posts');
         const data = await response.json();
         setPosts(data);
         setLoading(false);

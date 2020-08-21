@@ -41,7 +41,7 @@ export const  NavMenu = () => {
               {isAuthenticated ? 
               <div style={{display: 'flex'}}>
                 <NavItem>
-                  <NavLink tag={Link} className="text-dark" to="/user">{auth.name}</NavLink>
+                  <NavLink tag={Link} className="text-dark" to="/user">Acc</NavLink>
                 </NavItem> 
                 <NavItem>
                   <NavLink tag={Link} className="text-dark" onClick={logoutHandler} to="/">LogOut</NavLink>

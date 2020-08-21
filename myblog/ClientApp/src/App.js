@@ -13,12 +13,12 @@ import './custom.css'
 import { useAuth } from './hooks/auth.hook';
 
 function App(){
-  const {login, logout, token, userId, name} = useAuth();
+  const {login, logout, token} = useAuth();
   const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated)
   return (
     <AuthContext.Provider value={{
-      login, logout, token, userId, name, isAuthenticated
+      login, logout, token, isAuthenticated
     }}>
       <div>
         <NavMenu />

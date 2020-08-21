@@ -26,7 +26,7 @@ namespace myblog.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<DobbiUser>> Get(Guid id)
+        public async Task<ActionResult<DobbiUser>> Get(string id)
         {
             return await repos.GetAsync(id) ?? NotFound();
         }
@@ -37,6 +37,13 @@ namespace myblog.Controllers
             var res = repos.GetToken(model.username, model.password);
 
             return res ?? BadRequest(new { errorText = $"Неправильный логин, либо пароль. username: {model.username}" });
+        }
+
+        [HttpPost("/api/Accounts/updateToken")]
+        public IActionResult UpdateToken([FromBody] UpdateTokenModel tm)
+        {
+            var res = repos.UpdateToken(tm.token);
+            return res ?? BadRequest(new { errorText = $"Токены не свопадают: {tm.token}" });
         }
     }
 }
