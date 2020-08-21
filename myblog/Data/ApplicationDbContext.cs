@@ -18,6 +18,7 @@ namespace myblog.Data
         public DbSet<DobbiUser> users { get; set; }
         public DbSet<DobbiRoles> roles { get; set; }
 
+        public DbSet<MainPage> mainPage { get; set; }
 
         public ApplicationDbContext(
             DbContextOptions options,

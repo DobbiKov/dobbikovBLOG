@@ -11,6 +11,8 @@ import Post from './components/Post';
 import {AuthPage} from './components/AuthPage';
 import {User} from './components/User';
 
+import {EditHome} from './admin/blog/home';
+
 export const useRoutes = isAuthenticated => {
     if(isAuthenticated){
         return(
@@ -22,6 +24,7 @@ export const useRoutes = isAuthenticated => {
                 <Route path='/contact' component={Contacts} />
                 <Route path='/auth' component={AuthPage}/>
                 <Route path='/user' component={User}/>
+                <Route path='/admin/blog' component={EditHome}/>
             </Container>
         )
     }

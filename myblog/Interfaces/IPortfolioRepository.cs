@@ -13,7 +13,7 @@ namespace myblog.Interfaces
         Task<ActionResult<Portfolio>> GetAsync(Guid id);
         void Create(Portfolio post);
         void Update(Portfolio post);
-        Portfolio Delete(Guid id);
+        Task<ActionResult<Portfolio>> Delete(Guid id);
         Task Init();
     }
 }

@@ -11,28 +11,26 @@ using myblog.Models;
 
 namespace myblog.Controllers
 {
-    [ApiController]
     [Route("api/[controller]")]
-    public class PortfoliosController : ControllerBase
+    [ApiController]
+    public class MainPagesController : ControllerBase
     {
-        private readonly IPortfolioRepository repos;
-
-        public PortfoliosController(IPortfolioRepository _repos)
+        private readonly IMainPageRepository repos;
+        public MainPagesController(IMainPageRepository _repos)
         {
             repos = _repos;
         }
 
-        // GET: api/Portfolios
         [HttpGet]
-        public async Task<IEnumerable<Portfolio>> Get()
+        public async Task<IEnumerable<MainPage>> Get()
         {
             return await repos.GetAsync();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Portfolio>> Delete(Guid id)
+        [HttpPost("/api/MainPages/Update")]
+        public async Task<ActionResult<MainPage>> Update([FromBody] MainPage mainPage)
         {
-            return await repos.Delete(id) ?? NotFound();
+            return await repos.Update(mainPage) ?? BadRequest(new { errorText = "Беда, пиздец"});
         }
     }
 }

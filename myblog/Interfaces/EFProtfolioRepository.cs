@@ -21,9 +21,14 @@ namespace myblog.Interfaces
             throw new NotImplementedException();
         }
 
-        public Portfolio Delete(Guid id)
+        public async Task<ActionResult<Portfolio>> Delete(Guid id)
         {
-            throw new NotImplementedException();
+            var res = await db.Portfolios.FirstOrDefaultAsync(x => x.Id == id);
+            if (res == null) return null;
+
+            db.Portfolios.Remove(res);
+            await db.SaveChangesAsync();
+            return res;
         }
 
         public async Task<IEnumerable<Portfolio>> GetAsync()

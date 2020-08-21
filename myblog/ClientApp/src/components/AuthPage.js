@@ -15,12 +15,9 @@ export const AuthPage = () => {
     }
 
     const loginHandler = async () => {
-
-        console.log({...form});
         const response = await request('api/Accounts/token', 'POST', JSON.stringify({...form}), {"Accept": "application/json", "Content-Type" : "application/json"});
 
         const data = await response.json();
-        console.log(`AuthPage == ${data}`)
         if(response.ok === true){
             auth.login(data.token);
         }

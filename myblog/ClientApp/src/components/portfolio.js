@@ -1,5 +1,7 @@
-import React, { Component, useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
+import {AuthContext} from '../context/AuthContext';
 import {useHttp} from '../hooks/http.hook';
+import {Link} from 'react-router-dom';
 
 const styles = {
     mz:{
@@ -17,11 +19,15 @@ const styles = {
 };
 
 export const Portfolio = () => {
+  const auth = useContext(AuthContext);
   const {request} = useHttp();
   const [portfolios, setPortfolios] = useState([]);
+  const [user, setUser] = useState({});
+  const [role, setRole] = useState({});
+  const [loading2, setLoading2] = useState(true);
   const [loading, setLoading] = useState(true);
 
-  const renderTable = useCallback((_portfolios) => {
+  const renderTable = useCallback((_portfolios, _role) => {
     return(
       <div style={{display: 'flex', marginTop: '15px'}}>
         { _portfolios.map((portfolio) => 
@@ -41,6 +47,8 @@ export const Portfolio = () => {
     const data = await response.json();
     setPortfolios(data);
     setLoading(false);
+
+
   }, []);
 
   useEffect(() => {
@@ -52,7 +60,7 @@ export const Portfolio = () => {
     <div>
       <h1>My Portfolios</h1>
       <div style={{display: 'flex', justifyContent: 'center'}}>
-      {loading ? <p><em>Loading...</em></p> : renderTable(portfolios)}
+      {loading ? <p><em>Loading...</em></p> : renderTable(portfolios, role)}
       </div>
     </div>
   );
