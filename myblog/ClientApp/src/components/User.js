@@ -10,7 +10,7 @@ export const User = () => {
     const [loading2, setLoading2] = useState(true);
     const [loading, setLoading] = useState(true);
     const {request} = useHttp();
-    const populateUser = async (_userId) => {
+    const populateUser = async () => {
         const response = await fetch(`/api/Accounts/${auth.token}`, {headers: {}});
         const data = await response.json();
         setUser(data);
