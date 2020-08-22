@@ -5,6 +5,8 @@ using myblog.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Security.Cryptography.X509Certificates;
 using System.Threading.Tasks;
 
 namespace myblog.Interfaces
@@ -16,9 +18,10 @@ namespace myblog.Interfaces
         {
             this.db = _context;
         }
-        public void Create(Portfolio post)
+        public async Task Create(Portfolio post)
         {
-            throw new NotImplementedException();
+            await db.Portfolios.AddAsync(post);
+            await db.SaveChangesAsync();
         }
 
         public async Task<ActionResult<Portfolio>> Delete(Guid id)
@@ -39,7 +42,7 @@ namespace myblog.Interfaces
 
         public async Task<ActionResult<Portfolio>> GetAsync(Guid id)
         {
-            throw new NotImplementedException();
+            return await db.Portfolios.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task Init()
@@ -56,9 +59,11 @@ namespace myblog.Interfaces
             }
         }
 
-        public void Update(Portfolio post)
+        public async Task<ActionResult<Portfolio>> Update(Portfolio post)
         {
-            throw new NotImplementedException();
+            db.Entry(post).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return await db.Portfolios.FirstOrDefaultAsync(x => x.Id == post.Id);
         }
     }
 }

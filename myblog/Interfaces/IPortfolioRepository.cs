@@ -11,8 +11,8 @@ namespace myblog.Interfaces
     {
         Task<IEnumerable<Portfolio>> GetAsync();
         Task<ActionResult<Portfolio>> GetAsync(Guid id);
-        void Create(Portfolio post);
-        void Update(Portfolio post);
+        Task Create(Portfolio post);
+        Task<ActionResult<Portfolio>> Update(Portfolio post);
         Task<ActionResult<Portfolio>> Delete(Guid id);
         Task Init();
     }

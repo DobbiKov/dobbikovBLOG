@@ -2,9 +2,7 @@ import {useCallback, useContext, useState} from 'react';
 import {AuthContext} from '../context/AuthContext';
 export const useHttp = () => {
     const auth = useContext(AuthContext);
-    const [form, setForm] = useState({
-        token: auth.token
-    })
+    const [_token, set_token] = useState(auth.token);
     const request = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         if(auth.isAuthenticated)
         {

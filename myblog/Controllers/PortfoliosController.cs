@@ -28,11 +28,28 @@ namespace myblog.Controllers
         {
             return await repos.GetAsync();
         }
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Portfolio>> Get(Guid id)
+        {
+            return await repos.GetAsync(id) ?? NotFound();
+        }
 
         [HttpDelete("{id}")]
         public async Task<ActionResult<Portfolio>> Delete(Guid id)
         {
             return await repos.Delete(id) ?? NotFound();
+        }
+
+        [HttpPost("/api/Portfolios/Update")]
+        public async Task<ActionResult<Portfolio>> Update([FromBody] Portfolio obj)
+        {
+            return await repos.Update(obj);
+        }
+
+        [HttpPost("/api/Portfolios/Create")]
+        public async Task Create([FromBody] Portfolio obj)
+        {
+            await repos.Create(obj);
         }
     }
 }

@@ -14,7 +14,11 @@ import {AuthPage} from './components/AuthPage';
 import {User} from './components/User';
 
 import {EditHome} from './admin/home/home';
-
+import {AdminPortfolios} from './admin/portfolio/portfolio';
+import {AdminDeletePortfolio} from './admin/portfolio/deletePortfolio';
+import {AdminEditPortfolio} from './admin/portfolio/editPortfolio';
+import {AdminCreatePortfolio} from './admin/portfolio/createPortfolio';
+ 
 export const AllAuth = () => {
     const auth = useContext(AuthContext);
     const [user, setUser] = useState({});
@@ -30,7 +34,6 @@ export const AllAuth = () => {
         const response = await fetch(`/api/Roles/${idx}`, {headers: {}});
         const data = await response.json();
         setRole(data);
-        setCanEditMainPage(!!data.canEditMainPage);
     }
     useEffect(() => {
         populateUser(auth.token);
@@ -39,6 +42,10 @@ export const AllAuth = () => {
         <Container>
             <Route path='/user' component={User}/>
             {role.canEditMainPage ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/portfolio/new" component={AdminCreatePortfolio}/> : <Container/>}
         </Container>
     )
 }
@@ -61,51 +68,10 @@ export const CanCreateRoles = () => {
 export const CanEditMainPage = () => {
 
 }
-/*
-export const All = () => {
-    const auth = useContext(AuthContext);
-    const [user, setUser] = useState({});
-    const [role, setRole] = useState({});
-    //const {request} = useHttp();
-
-    const populateUser = async (_token) => {
-        const response = await fetch(`/api/Accounts/${_token}`, {headers: {}});
-        const data = await response.json();
-        setUser(data);
-        populateUserRole(data.userRoleId);
-    }
-    const populateUserRole = async (idx) => {
-        const response = await fetch(`/api/Roles/${idx}`, {headers: {}});
-        const data = await response.json();
-        setRole(data);
-    }
-    useEffect(() => {
-        console.log(auth);
-        console.log(auth.token);
-        console.log(JSON.stringify({auth}));
-        populateUser(auth.token);
-    }, []);
-    return(
-        <Container>
-            {role.canEditMainPage ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
-        </Container>
-    )
-}*/
 
 
 
 export const useRoutes = isAuthenticated => {
-    /*
-        return(
-            <Container>
-                <Route exact path='/' component={Home}/>
-                <Route path='/post/:id' component={Post} />
-                <Route path='/blog' component={Blog} />
-                <Route path='/portfolio' component={Portfolio} />
-                <Route path='/contact' component={Contacts} />
-                <Route path='/auth' component={AuthPage}/>
-            </Container>
-        )*/
     return(
         <Container>
             <Route exact path='/' component={Home}/>
