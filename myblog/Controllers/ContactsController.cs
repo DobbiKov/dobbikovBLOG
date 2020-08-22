@@ -15,19 +15,45 @@ namespace myblog.Controllers
     [Route("api/[controller]")]
     public class ContactsController : ControllerBase
     {
-        private readonly IContactRepository contactsRepos;
+        private readonly IContactRepository repos;
 
         public ContactsController(IContactRepository _contactsRepos)
         {
-            contactsRepos = _contactsRepos;
+            repos = _contactsRepos;
         }
 
         [HttpGet]
         public async Task<IEnumerable<Contacts>> Get()
         {
-            return await contactsRepos.GetAsync();
+            return await repos.GetAsync();
         }
 
+        [HttpGet("{id}")] //api/Contacts/:id
+        public async Task<ActionResult<Contacts>> Get(Guid id)
+        {
+            return await repos.GetAsync(id) ?? NotFound();
+        }
+
+        [HttpPost("/api/Contacts/Update")]
+        public async Task<ActionResult<Contacts>> Update(Contacts obj)
+        {
+            return await repos.Update(obj);
+        }
+
+        [HttpPost("/api/Contacts/Create")]
+        public async Task Create(Contacts obj)
+        {
+            await repos.Create(obj);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id)
+        {
+            await repos.Delete(id);
+        }
+
+
+        /*ШПАРГАЛКА!*/
         // GET: api/Contacts
         /*[HttpGet]
         public async Task<ActionResult<IEnumerable<Contacts>>> GetContacts()

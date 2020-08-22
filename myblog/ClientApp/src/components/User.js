@@ -1,7 +1,8 @@
 import React, {useEffect, useState, useContext} from 'react';
 import {AuthContext} from '../context/AuthContext';
-import {Redirect} from 'react-router-dom';
+import {Redirect, Link} from 'react-router-dom';
 import {useHttp} from '../hooks/http.hook';
+import { Container } from 'reactstrap';
 
 export const User = () => {
     const auth = useContext(AuthContext);
@@ -33,6 +34,7 @@ export const User = () => {
             <div>
                 <h1>{user.login}</h1>
                 <h2>{role.name}</h2>
+                <h2>{role.canCreate ? <Link to="/admins">To Admin Panel</Link> : <Container/>}</h2>
             </div>}
         </div>
     )

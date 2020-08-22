@@ -13,7 +13,7 @@ namespace myblog.Interfaces
 {
     public class EFProtfolioRepository : IPortfolioRepository
     {
-        private ApplicationDbContext db;
+        private readonly ApplicationDbContext db;
         public EFProtfolioRepository(ApplicationDbContext _context)
         {
             this.db = _context;

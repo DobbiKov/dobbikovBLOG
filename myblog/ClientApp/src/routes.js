@@ -1,10 +1,14 @@
+//react
 import React, {useContext, useState, useEffect} from 'react';
 import { Switch, Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
+
+//hooks + contexts
 import {useAuth} from './hooks/auth.hook';
 import {AuthContext} from './context/AuthContext';
 import {useUser} from './hooks/user.hook';
 
+//components
 import { Home } from './components/Home';
 import { Portfolio } from './components/portfolio';
 import { Contacts } from './components/Contacts';
@@ -13,11 +17,21 @@ import Post from './components/Post';
 import {AuthPage} from './components/AuthPage';
 import {User} from './components/User';
 
+//admin components
+import {Admin} from './admin/admin';
 import {EditHome} from './admin/home/home';
+//admin components portfolio
 import {AdminPortfolios} from './admin/portfolio/portfolio';
 import {AdminDeletePortfolio} from './admin/portfolio/deletePortfolio';
 import {AdminEditPortfolio} from './admin/portfolio/editPortfolio';
 import {AdminCreatePortfolio} from './admin/portfolio/createPortfolio';
+//admin components portfolio
+import {AdminContacts} from './admin/contacts/contacts';
+import {AdminEditContacts} from './admin/contacts/editContact';
+import {AdminDeleteContact} from './admin/contacts/deleteContact';
+import {AdminCreateContact} from './admin/contacts/createContact';
+
+
  
 export const AllAuth = () => {
     const auth = useContext(AuthContext);
@@ -42,31 +56,19 @@ export const AllAuth = () => {
         <Container>
             <Route path='/user' component={User}/>
             {role.canEditMainPage ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
+            
             {role.canEditMainPage ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/portfolio/new" component={AdminCreatePortfolio}/> : <Container/>}
+
+            {role.canEditMainPage ? <Route path="/admin/contacts" component={AdminContacts}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/contact/edit/:id" component={AdminEditContacts}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/contact/delete/:id" component={AdminDeleteContact}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/contact/new" component={AdminCreateContact}/> : <Container/>}
+            {role.canCreate ? <Route path="/admins" component={Admin}/> : <Container/>}
         </Container>
     )
-}
-
-export const CanCreate = () => {
-
-}
-export const CanEdit = () => {
-
-}
-export const CanDelete = () => {
-
-}
-export const CanBanUsers = () => {
-
-}
-export const CanCreateRoles = () => {
-
-}
-export const CanEditMainPage = () => {
-
 }
 
 

@@ -12,9 +12,9 @@ namespace myblog.Interfaces
     {
         Task<IEnumerable<Contacts>> GetAsync();
         Task<ActionResult<Contacts>> GetAsync(Guid id);
-        void Create(Contacts post);
-        void Update(Contacts post);
-        Contacts Delete(Guid id);
-        void Init();
+        Task Create(Contacts post);
+        Task<ActionResult<Contacts>> Update(Contacts post);
+        Task Delete(Guid id);
+        Task Init();
     }
 }
