@@ -34,7 +34,7 @@ export const User = () => {
             <div>
                 <h1>{user.login}</h1>
                 <h2>{role.name}</h2>
-                <h2>{role.canCreate ? <Link to="/admins">To Admin Panel</Link> : <Container/>}</h2>
+                <h2>{role.canCreate == "True" ? <Link to="/admins">To Admin Panel</Link> : <Container/>}</h2>
             </div>}
         </div>
     )

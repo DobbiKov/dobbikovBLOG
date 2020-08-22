@@ -19,9 +19,17 @@ namespace myblog.Interfaces
         {
             db = _db;
         }
-        public Task Create(DobbiUser post)
+        public async Task<ActionResult<DobbiUser>> Create(DobbiUser user)
         {
-            throw new NotImplementedException();
+            var obj = await db.users.FirstOrDefaultAsync(x => x.Login == user.Login);
+            if (obj == null)
+            {
+                user.UserRoleId = new Guid("00000000-0000-0000-0000-000000000002");
+                await db.users.AddAsync(user);
+                await db.SaveChangesAsync();
+                return await db.users.FirstOrDefaultAsync(x => x.Login == user.Login);
+            }
+            return null;
         }
 
         public Task<ActionResult<DobbiUser>> Delete(Guid id)

@@ -15,6 +15,7 @@ import { Contacts } from './components/Contacts';
 import { Blog } from './components/Blog';
 import Post from './components/Post';
 import {AuthPage} from './components/AuthPage';
+import {RegPage} from './components/RegPage';
 import {User} from './components/User';
 
 //admin components
@@ -56,28 +57,35 @@ export const AllAuth = () => {
     useEffect(() => {
         populateUser(auth.token);
     }, [auth]);
+    if(auth.isAuthenticated){
     return(
         <Container>
             <Route path='/user' component={User}/>
-            {role.canEditMainPage ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
 
-            {role.canEditMainPage ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/portfolio/new" component={AdminCreatePortfolio}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/portfolio/new" component={AdminCreatePortfolio}/> : <Container/>}
 
-            {role.canEditMainPage ? <Route path="/admin/contacts" component={AdminContacts}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/contact/edit/:id" component={AdminEditContacts}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/contact/delete/:id" component={AdminDeleteContact}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/contact/new" component={AdminCreateContact}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/contacts" component={AdminContacts}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/contact/edit/:id" component={AdminEditContacts}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/contact/delete/:id" component={AdminDeleteContact}/> : <Container/>}
+            {role.canEditMainPage == "True" ? <Route path="/admin/contact/new" component={AdminCreateContact}/> : <Container/>}
 
-            {role.canEditMainPage ? <Route path="/admin/blog" component={AdminBlog}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/post/new" component={AdminCreatePost}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/post/delete/:id" component={AdminDeletePost}/> : <Container/>}
-            {role.canEditMainPage ? <Route path="/admin/post/edit/:id" component={AdminUpdatePost}/> : <Container/>}
-            {role.canCreate ? <Route path="/admins" component={Admin}/> : <Container/>}
+            {role.canCreate == "True" ? <Route path="/admin/blog" component={AdminBlog}/> : <Container/>}
+            {role.canCreate == "True" ? <Route path="/admin/post/new" component={AdminCreatePost}/> : <Container/>}
+            {role.canDelete == "True" ? <Route path="/admin/post/delete/:id" component={AdminDeletePost}/> : <Container/>}
+            {role.canEdit == "True" ? <Route path="/admin/post/edit/:id" component={AdminUpdatePost}/> : <Container/>}
+            {role.canCreate == "True" ? <Route path="/admins" component={Admin}/> : <Container/>}
         </Container>
     )
+    }
+    else{
+        return(
+            <Container/>
+        )
+    }
 }
 
 
@@ -91,6 +99,7 @@ export const useRoutes = isAuthenticated => {
             <Route path='/portfolio' component={Portfolio} />
             <Route path='/contact' component={Contacts} />
             <Route path='/auth' component={AuthPage}/>
+            <Route path='/register' component={RegPage}/>
             <AllAuth/>
         </Container>)
 }

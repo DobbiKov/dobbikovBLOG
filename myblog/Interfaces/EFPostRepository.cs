@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using myblog.Data;
 using myblog.Models;
+using myblog.TelegramBot.Functions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace myblog.Interfaces
         }
         public async Task Create(Post post)
         {
+            await BotSendMessage.ToDobbiKovBlog(post.Text);
             await db.posts.AddAsync(post);
             await db.SaveChangesAsync();
         }

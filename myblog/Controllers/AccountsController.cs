@@ -45,5 +45,11 @@ namespace myblog.Controllers
             var res = repos.UpdateToken(tm.token);
             return res ?? BadRequest(new { errorText = $"Токены не свопадают: {tm.token}" });
         }
+
+        [HttpPost("/api/Accounts/Register")]
+        public async Task<ActionResult<DobbiUser>> CreateAccount(DobbiUser user)
+        {
+            return await repos.Create(user) ?? BadRequest(new { errorText = "Пользователь с таким логином уже есть."});
+        }
     }
 }
