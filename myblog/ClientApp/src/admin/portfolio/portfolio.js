@@ -39,8 +39,8 @@ export const AdminPortfolios = () => {
                 <h3 style={styles.mz}>{portfolio.name}</h3>
                 <p style={styles.mz}>{portfolio.title}</p>
                 <a href={portfolio.link} style = {styles.links}>See a project</a>
-                <Link to={`/admin/portfolio/delete/${portfolio.id}`} style = {styles.links}>Delete</Link>
                 <Link to={`/admin/portfolio/edit/${portfolio.id}`} style = {styles.links}>Edit</Link>
+                <Link to={`/admin/portfolio/delete/${portfolio.id}`} style = {styles.links}>Delete</Link>
               </div>
           ) }
           </div>

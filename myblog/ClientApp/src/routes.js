@@ -25,12 +25,16 @@ import {AdminPortfolios} from './admin/portfolio/portfolio';
 import {AdminDeletePortfolio} from './admin/portfolio/deletePortfolio';
 import {AdminEditPortfolio} from './admin/portfolio/editPortfolio';
 import {AdminCreatePortfolio} from './admin/portfolio/createPortfolio';
-//admin components portfolio
+//admin components contacts
 import {AdminContacts} from './admin/contacts/contacts';
 import {AdminEditContacts} from './admin/contacts/editContact';
 import {AdminDeleteContact} from './admin/contacts/deleteContact';
 import {AdminCreateContact} from './admin/contacts/createContact';
-
+//admin components posts
+import {AdminBlog} from './admin/blog/blog';
+import {AdminCreatePost} from './admin/blog/createPost';
+import {AdminDeletePost} from './admin/blog/deletePost';
+import {AdminUpdatePost} from './admin/blog/editPost';
 
  
 export const AllAuth = () => {
@@ -56,7 +60,7 @@ export const AllAuth = () => {
         <Container>
             <Route path='/user' component={User}/>
             {role.canEditMainPage ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
-            
+
             {role.canEditMainPage ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
@@ -66,6 +70,11 @@ export const AllAuth = () => {
             {role.canEditMainPage ? <Route path="/admin/contact/edit/:id" component={AdminEditContacts}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/contact/delete/:id" component={AdminDeleteContact}/> : <Container/>}
             {role.canEditMainPage ? <Route path="/admin/contact/new" component={AdminCreateContact}/> : <Container/>}
+
+            {role.canEditMainPage ? <Route path="/admin/blog" component={AdminBlog}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/post/new" component={AdminCreatePost}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/post/delete/:id" component={AdminDeletePost}/> : <Container/>}
+            {role.canEditMainPage ? <Route path="/admin/post/edit/:id" component={AdminUpdatePost}/> : <Container/>}
             {role.canCreate ? <Route path="/admins" component={Admin}/> : <Container/>}
         </Container>
     )

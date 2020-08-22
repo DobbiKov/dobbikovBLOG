@@ -16,14 +16,16 @@ namespace myblog.Interfaces
         {
             db = _db;
         }
-        public Task Create(Post post)
+        public async Task Create(Post post)
         {
-            throw new NotImplementedException();
+            await db.posts.AddAsync(post);
+            await db.SaveChangesAsync();
         }
 
-        public Task<ActionResult<Post>> Delete(Guid id)
+        public async Task Delete(Guid id)
         {
-            throw new NotImplementedException();
+            db.posts.Remove(await db.posts.FirstOrDefaultAsync(x => x.Id == id));
+            await db.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Post>> GetAsync()
@@ -52,9 +54,11 @@ namespace myblog.Interfaces
             }
         }
 
-        public Task Update(Post post)
+        public async Task<ActionResult<Post>> Update(Post post)
         {
-            throw new NotImplementedException();
+            db.Entry(post).State = EntityState.Modified;
+            await db.SaveChangesAsync();
+            return await GetAsync(post.Id);
         }
     }
 }

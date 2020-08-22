@@ -32,5 +32,22 @@ namespace myblog.Controllers
         {
             return await repos.GetAsync(id) ?? NotFound();
         }
+
+        [HttpPost("/api/Posts/Create")]
+        public async Task Create(Post post)
+        {
+            await repos.Create(post);
+        }
+
+        [HttpDelete("{id}")]
+        public async Task Delete(Guid id)
+        {
+            await repos.Delete(id);
+        }
+        [HttpPost("/api/Posts/Update")]
+        public async Task<ActionResult<Post>> Update([FromBody] Post post)
+        {
+            return await repos.Update(post);
+        }
     }
 }

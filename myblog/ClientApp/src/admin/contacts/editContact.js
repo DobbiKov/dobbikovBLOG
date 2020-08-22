@@ -11,7 +11,7 @@ export const AdminEditContacts = () => {
         Id: idx, Name: '', Title: '', Image: 'n', Link: ''
     })
     const populateProtfolio = async (idx) => {
-        const response = await request(`/api/Contacts/${idx}`);
+        const response = await fetch(`/api/Contacts/${idx}`, {method: 'GET', body: null, headers: {}});
         const data = await response.json();
         setObj(data);
         setLoading(false);

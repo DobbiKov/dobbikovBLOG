@@ -1,7 +1,6 @@
 import React, {Component, useState, useCallback, useEffect} from 'react'
-import {useHistory} from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import {useHttp} from '../hooks/http.hook';
+import {useHttp} from '../../hooks/http.hook';
 
 const styles = {
     renderPostsA:{
@@ -12,6 +11,7 @@ const styles = {
         marginTop: '5px'
     },
     renderPostsDiv: {
+        display: 'inline-block',
         borderBottom: '3px solid black',
         borderTop: '3px solid black',
         borderRight: '3px solid black',
@@ -19,7 +19,7 @@ const styles = {
     }
 }
 
-export const Blog = () => {
+export const AdminBlog = () => {
     const [posts, setPosts] = useState([]);
     const [loading, setLoading] = useState(true);
     const {request} = useHttp();
@@ -38,6 +38,8 @@ export const Blog = () => {
                     <Link to={`/post/${post.id}`} style={styles.renderPostsA}  key={post.id}><div style = {styles.renderPostsDiv}>
                         <h3>{post.name}</h3>
                         <p>{post.title}</p>
+                        <Link to={`/admin/post/edit/${post.id}`}>Edit</Link>
+                        <Link to={`/admin/post/delete/${post.id}`}>Delete</Link>
                     </div></Link>
                 )}
             </div>
@@ -51,6 +53,7 @@ export const Blog = () => {
     return(
         <div>
             <h1>Blog</h1>
+            <Link to="/admin/post/new">Add new</Link>
             {loading ? <h1>Loading...</h1> : renderPosts(posts)}
         </div>
     )

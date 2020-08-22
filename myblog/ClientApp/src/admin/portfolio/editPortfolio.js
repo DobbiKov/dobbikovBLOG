@@ -11,7 +11,7 @@ export const AdminEditPortfolio = () => {
         Id: idx, Name: '', Title: '', Image: 'n', Link: ''
     })
     const populateProtfolio = async (idx) => {
-        const response = await request(`/api/Portfolios/${idx}`);
+        const response = await fetch(`/api/Portfolios/${idx}`, {method: 'GET', body: null, headers: {}});
         const data = await response.json();
         setObj(data);
         setLoading(false);
