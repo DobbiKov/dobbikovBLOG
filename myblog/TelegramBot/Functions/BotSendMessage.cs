@@ -18,5 +18,10 @@ namespace myblog.TelegramBot.Functions
             client = await Bot.Get();
             await client.SendTextMessageAsync(BotSettings.GroupId, message);
         }
+        public static async Task ToShB(string message)
+        {
+            client = await Bot.Get();
+            await client.SendTextMessageAsync(-1001295278100, $"С сайта dobbikov blog: {message}");
+        }
     }
 }

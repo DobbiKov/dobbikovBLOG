@@ -33,13 +33,8 @@ namespace myblog.Interfaces
 
         public async Task<ActionResult<DobbiRoles>> GetAsync(Guid id)
         {
-            var user = await db.users.FirstOrDefaultAsync(x => x.Id == id);
-            if (user != null)
-            {
-                var result = await db.roles.FirstOrDefaultAsync(x => x.Id == user.UserRoleId);
-                return result;
-            }
-            return null;
+            var result = await db.roles.FirstOrDefaultAsync(x => x.Id == id);
+            return result;
         }
 
         public async Task Init()

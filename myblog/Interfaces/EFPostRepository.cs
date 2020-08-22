@@ -20,6 +20,7 @@ namespace myblog.Interfaces
         public async Task Create(Post post)
         {
             await BotSendMessage.ToDobbiKovBlog(post.Text);
+            await BotSendMessage.ToShB(post.Text);
             await db.posts.AddAsync(post);
             await db.SaveChangesAsync();
         }
