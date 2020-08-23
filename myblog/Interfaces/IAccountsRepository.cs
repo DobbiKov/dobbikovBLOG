@@ -12,6 +12,7 @@ namespace myblog.Interfaces
     {
         Task<IEnumerable<DobbiUser>> GetAsync();
         Task<ActionResult<DobbiUser>> GetAsync(string id);
+        Task<ActionResult<DobbiUser>> GetAsync(Guid id);
         Task<ActionResult<DobbiUser>> Create(DobbiUser post);
         Task Update(DobbiUser post);
         Task<ActionResult<DobbiUser>> Delete(Guid id);

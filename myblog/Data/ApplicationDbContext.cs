@@ -17,8 +17,10 @@ namespace myblog.Data
         public DbSet<Post> posts { get; set; }
         public DbSet<DobbiUser> users { get; set; }
         public DbSet<DobbiRoles> roles { get; set; }
+        public DbSet<PostComments> postComments { get; set; }
 
         public DbSet<MainPage> mainPage { get; set; }
+
 
         public ApplicationDbContext(
             DbContextOptions options,
