@@ -49,6 +49,10 @@ namespace myblog.Interfaces
             var user = await db.users.FirstOrDefaultAsync(x => x.Token == token);
             return user;
         }
+        public async Task<ActionResult<DobbiUser>> GetAsync(Guid id)
+        {
+            return await db.users.FirstOrDefaultAsync(x => x.Id == id);
+        }
 
         public async Task Init()
         {

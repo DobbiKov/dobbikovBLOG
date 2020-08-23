@@ -82,6 +82,7 @@ namespace myblog
             services.AddTransient<IAccountsRepository, EFAccountsRepository>();
             services.AddTransient<IRolesRepository, EFRolesRepository>();
             services.AddTransient<IMainPageRepository, EFMainPageRepository>();
+            services.AddTransient<IPostCommentsRepository, EFPostCommentsRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
