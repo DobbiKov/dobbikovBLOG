@@ -1,6 +1,5 @@
 import React, {Component, useCallback, useState, useEffect, useContext} from 'react';
 import {useParams} from 'react-router-dom';
-import {useHttp} from '../hooks/http.hook';
 import {AuthContext} from '../context/AuthContext';
 
 export const CommentUserName = (userid) => {
@@ -25,7 +24,6 @@ export const CommentUserName = (userid) => {
 const Post = () => {
     const auth = useContext(AuthContext);
     const idx = useParams().id;
-    const {request} = useHttp();
     const [post, setPost] = useState({});
     const [comments, setComments] = useState(null);
     const [comms, setComms] = useState({});
@@ -71,9 +69,6 @@ const Post = () => {
         </div>
         );
     }, []);
-    const renderUserName = (name, _loadName) => {
-        return(<div>{_loadName ? <p>Loading</p> : <p>{name}</p>}</div>)
-    }
     const renderComments = (_comments, _comms) => {
         if(_comments == null) return (<div>Null</div>);
         return(

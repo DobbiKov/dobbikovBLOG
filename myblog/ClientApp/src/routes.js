@@ -1,6 +1,6 @@
 //react
 import React, {useContext, useState, useEffect} from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Route } from 'react-router-dom';
 import { Container } from 'reactstrap';
 
 //hooks + contexts
@@ -61,7 +61,7 @@ export const AllAuth = () => {
     return(
         <Container>
             <Route path='/user' component={User}/>
-            {role.canEditMainPage === "True" ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
 
             {role.canEditMainPage === true ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
             {role.canEditMainPage === true ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
