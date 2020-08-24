@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using myblog.Data;
 using myblog.Interfaces;
@@ -31,9 +32,14 @@ namespace myblog.Controllers
         }
 
         [HttpPost("/api/Posts/Create")]
-        public async Task Create(Post post)
+        public async Task<ActionResult<Post>> Create(Post post)
         {
-            await repos.Create(post);
+            return await repos.Create(post);
+        }        
+        [HttpPost("/api/Posts/UploadPhoto/{id}")]
+        public async Task UploadPhoto(IFormFile file, Guid id)
+        {
+            await repos.UploadPhoto(id, file);
         }
 
         [HttpDelete("{id}")]

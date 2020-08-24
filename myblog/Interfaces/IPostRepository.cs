@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using myblog.Models;
 using System;
 using System.Collections.Generic;
@@ -11,9 +12,11 @@ namespace myblog.Interfaces
     {
         Task<IEnumerable<Post>> GetAsync();
         Task<ActionResult<Post>> GetAsync(Guid id);
-        Task Create(Post post);
+        Task<ActionResult<Post>> Create(Post post);
         Task<ActionResult<Post>> Update(Post post);
         Task Delete(Guid id);
         Task Init();
+
+        Task UploadPhoto(Guid id, IFormFile file);
     }
 }

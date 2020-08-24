@@ -1,4 +1,5 @@
-﻿using myblog.TelegramBot.Models;
+﻿using Microsoft.AspNetCore.Http;
+using myblog.TelegramBot.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,11 @@ namespace myblog.TelegramBot.Functions
         {
             client = await Bot.Get();
             await client.SendTextMessageAsync(-1001295278100, $"С сайта dobbikov blog: {message}");
+        }        
+        public static async Task ToShBPhoto(IFormFile file)
+        {
+            client = await Bot.Get();
+            await client.SendPhotoAsync(-1001295278100, (Telegram.Bot.Types.InputFiles.InputOnlineFile)file);
         }
     }
 }
