@@ -37,7 +37,7 @@ namespace myblog.Controllers
             return await repos.Create(post);
         }        
         [HttpPost("/api/Posts/UploadPhoto/{id}")]
-        public async Task UploadPhoto(IFormFile file, Guid id)
+        public async Task UploadPhoto(Guid id, IFormFile file)
         {
             await repos.UploadPhoto(id, file);
         }

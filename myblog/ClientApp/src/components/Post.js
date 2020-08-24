@@ -58,6 +58,7 @@ const Post = () => {
     }
     const clickHandler = async () => {
         const response = await fetch('/api/PostComments/NewComment', {method: 'POST', body: JSON.stringify({...formComm}), headers: {"Accept": "application/json", "Content-Type" : "application/json"}});
+        populateComments(idx);
     }
     
     const renderPost = useCallback((_post) => {

@@ -23,7 +23,7 @@ export const AdminCreatePost = () => {
         const data = await response.json()
         setPost(data);
 
-        const formData = new FormData();
+        let formData = new FormData();
         const iamgeSource = {...photo.file};
         formData.append('photo', iamgeSource);
         console.log(formData);

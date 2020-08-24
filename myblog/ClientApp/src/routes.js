@@ -61,23 +61,23 @@ export const AllAuth = () => {
     return(
         <Container>
             <Route path='/user' component={User}/>
-            {role.canEditMainPage == "True" ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
+            {role.canEditMainPage === "True" ? <Route path="/admin/home" component={EditHome}/> : <Container/>}
 
-            {role.canEditMainPage == true ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
-            {role.canEditMainPage == true ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
-            {role.canEditMainPage == true ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
-            {role.canEditMainPage == true ? <Route path="/admin/portfolio/new" component={AdminCreatePortfolio}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/portfolios" component={AdminPortfolios}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/portfolio/delete/:id" component={AdminDeletePortfolio}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/portfolio/edit/:id" component={AdminEditPortfolio}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/portfolio/new" component={AdminCreatePortfolio}/> : <Container/>}
 
-            {role.canEditMainPage == true ? <Route path="/admin/contacts" component={AdminContacts}/> : <Container/>}
-            {role.canEditMainPage == true ? <Route path="/admin/contact/edit/:id" component={AdminEditContacts}/> : <Container/>}
-            {role.canEditMainPage == true ? <Route path="/admin/contact/delete/:id" component={AdminDeleteContact}/> : <Container/>}
-            {role.canEditMainPage == true ? <Route path="/admin/contact/new" component={AdminCreateContact}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/contacts" component={AdminContacts}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/contact/edit/:id" component={AdminEditContacts}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/contact/delete/:id" component={AdminDeleteContact}/> : <Container/>}
+            {role.canEditMainPage === true ? <Route path="/admin/contact/new" component={AdminCreateContact}/> : <Container/>}
 
-            {role.canCreate == true ? <Route path="/admin/blog" component={AdminBlog}/> : <Container/>}
-            {role.canCreate == true ? <Route path="/admin/post/new" component={AdminCreatePost}/> : <Container/>}
-            {role.canDelete == true ? <Route path="/admin/post/delete/:id" component={AdminDeletePost}/> : <Container/>}
-            {role.canEdit == true ? <Route path="/admin/post/edit/:id" component={AdminUpdatePost}/> : <Container/>}
-            {role.canCreate == true ? <Route path="/admins" component={Admin}/> : <Container/>}
+            {role.canCreate === true ? <Route path="/admin/blog" component={AdminBlog}/> : <Container/>}
+            {role.canCreate === true ? <Route path="/admin/post/new" component={AdminCreatePost}/> : <Container/>}
+            {role.canDelete === true ? <Route path="/admin/post/delete/:id" component={AdminDeletePost}/> : <Container/>}
+            {role.canEdit === true ? <Route path="/admin/post/edit/:id" component={AdminUpdatePost}/> : <Container/>}
+            {role.canCreate === true ? <Route path="/admins" component={Admin}/> : <Container/>}
         </Container>
     )
     }
